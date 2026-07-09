@@ -7,6 +7,13 @@
 - Add pricing and auth pages as placeholders
 - Fix styling and static asset delivery
 
+## Sprint 1 - Auth Foundation
+- Supabase email/password authentication implemented
+- Google OAuth sign-in working
+- Sign-up, sign-in, sign-out, and password reset flows complete
+- Session persistence and protected dashboard verified
+- No TypeScript or ESLint errors, and production build passes
+
 ## Phase 2 - Launch
 - Add onboarding flow for business setup
 - Add lead capture and export

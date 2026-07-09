@@ -8,11 +8,12 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 
 type Inputs = z.infer<typeof authValidation.forgotPasswordForm>;
 
 type PropsType = {
-  invalidToken: boolean;
+  invalidToken?: boolean;
 };
 
 export default function ForgotPasswordForm({ invalidToken }: PropsType) {
@@ -29,17 +30,27 @@ export default function ForgotPasswordForm({ invalidToken }: PropsType) {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
+      const supabase = createBrowserSupabaseClient();
+      const redirectTo = `${window.location.origin}/reset-password`;
 
-      toast.success(
-        <pre>
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
+      const { error } = await supabase.auth.resetPasswordForEmail(
+        data.email,
+        {
+          redirectTo,
+        }
       );
 
+      if (error) {
+        toast.error(error.message);
+        setIsLoading(false);
+        return;
+      }
+
+      toast.success('Password reset email sent. Check your inbox.');
       form.reset();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      toast.error('Unable to send reset email. Try again later.');
     } finally {
       setIsLoading(false);
     }

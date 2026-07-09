@@ -3,19 +3,19 @@
 import { PasswordInput } from '@/components/ui/inputs';
 import { authValidation } from '@/lib/zod/auth.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
+import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 
 type Inputs = z.infer<typeof authValidation.resetPassword>;
 
-type PropsType = {
-  resetToken: string;
-};
-
-export default function ResetPasswordForm({ resetToken }: PropsType) {
+export default function ResetPasswordForm() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [hasSession, setHasSession] = useState<boolean | null>(null);
 
   const form = useForm<Inputs>({
     resolver: zodResolver(authValidation.resetPassword),
@@ -25,24 +25,53 @@ export default function ResetPasswordForm({ resetToken }: PropsType) {
     },
   });
 
+  useEffect(() => {
+    const checkSession = async () => {
+      const supabase = createBrowserSupabaseClient();
+      const { data } = await supabase.auth.getSession();
+      setHasSession(Boolean(data.session));
+    };
+
+    checkSession();
+  }, []);
+
   async function onSubmit(data: Inputs) {
     setIsLoading(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
+      const supabase = createBrowserSupabaseClient();
+      const { error } = await supabase.auth.updateUser({
+        password: data.newPassword,
+      });
 
-      toast.success(
-        <pre>
-          <code>{JSON.stringify({ data, resetToken }, null, 2)}</code>
-        </pre>
-      );
+      if (error) {
+        toast.error(error.message);
+        setIsLoading(false);
+        return;
+      }
 
-      form.reset();
-    } catch (error) {
-      console.error(error);
+      toast.success('Password updated. Please sign in with your new password.');
+      router.push('/signin');
+    } catch (err) {
+      console.error(err);
+      toast.error('Unable to update password. Try again.');
     } finally {
       setIsLoading(false);
     }
+  }
+
+  if (hasSession === null) {
+    return <p className="text-center">Checking reset session…</p>;
+  }
+
+  if (!hasSession) {
+    return (
+      <div className="text-center">
+        <p className="text-gray-700 dark:text-gray-400">
+          No active password reset session found. Request a new reset link.
+        </p>
+      </div>
+    );
   }
 
   return (
@@ -52,7 +81,7 @@ export default function ResetPasswordForm({ resetToken }: PropsType) {
           Change Password
         </h3>
         <p className="text-gray-500 dark:text-gray-400">
-          Make sure to create a strong password to mark your projects.
+          Make sure to create a strong password to secure your account.
         </p>
       </div>
 
