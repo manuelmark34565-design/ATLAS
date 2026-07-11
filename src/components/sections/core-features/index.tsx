@@ -7,12 +7,12 @@ export function CoreFeatures() {
       <div className="max-w-[72rem] mx-auto">
         <div className="mb-12 text-center">
           <h2 className="mb-3 font-bold text-gray-800 text-3xl dark:text-white/90 md:text-title-lg max-w-xl mx-auto">
-            Build your AI employee in minutes
+            Built for support, lead capture, and fast launch
           </h2>
 
-          <p className="max-w-xl mx-auto leading-6 text-gray-500 dark:text-gray-400">
-            ATLAS makes it easy for any business to train an AI assistant with its own information,
-            capture new customer leads, and respond to questions 24/7.
+          <p className="max-w-2xl mx-auto leading-6 text-gray-500 dark:text-gray-400">
+            These capabilities work together so your AI Employee can support customers,
+            capture leads, and grow your business at the same time.
           </p>
         </div>
 

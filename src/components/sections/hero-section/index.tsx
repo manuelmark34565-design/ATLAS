@@ -10,15 +10,14 @@ export default function HeroSection() {
         <div className="wrapper">
           <div className="max-w-[800px] mx-auto">
             <div className="text-center pb-16">
-              <Subheading text="Your AI employee for customer support, lead capture, and business growth." />
+              <Subheading text="Your AI Employee for customer support, lead capture, and business growth." />
 
               <h1 className="text-gray-700 mx-auto font-bold mb-4 text-4xl sm:text-[50px] dark:text-white/90 sm:leading-[64px] max-w-[700px]">
-                Hire an AI employee that works 24/7.
+                Build your AI Employee in minutes.
               </h1>
-              <p className="max-w-[537px] text-center mx-auto dark:text-gray-400 text-gray-500 text-base">
-                Train an AI on your business in minutes, deploy it on your website,
-                and let it answer questions, capture leads, and assist customers
-                around the clock.
+              <p className="max-w-[620px] text-center mx-auto dark:text-gray-400 text-gray-500 text-base">
+                Train your AI Employee on your business, let it answer customer questions 24/7,
+                capture leads, and deploy it on your website without code.
               </p>
 
               <div className="mt-9 flex sm:flex-row flex-col gap-3 relative z-30 items-center justify-center">

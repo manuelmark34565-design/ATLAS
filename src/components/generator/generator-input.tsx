@@ -9,12 +9,16 @@ type PropsType = {
   ) => void;
   value?: string;
   disabled?: boolean;
+  placeholder?: string;
+  helperText?: string;
 };
 
 export default function GeneratorInput({
   onChange,
   value,
   disabled,
+  placeholder = 'Type your message',
+  helperText,
 }: PropsType) {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -37,7 +41,7 @@ export default function GeneratorInput({
         <div className="p-5 pb-0 pr-[calc((var(--spacing)*5)-10px)]">
           <textarea
             ref={textareaRef}
-            placeholder="Type your message"
+            placeholder={placeholder}
             value={value}
             onChange={onChange}
             onKeyDown={(e) => {
@@ -52,7 +56,13 @@ export default function GeneratorInput({
           />
         </div>
         <div className="flex justify-between items-center gap-2 p-3 pt-0">
-          <label htmlFor="attach-file" className="flex items-center gap-1.5">
+          <div className="flex flex-col gap-1">
+            {helperText ? (
+              <span className="text-xs text-[#667085] dark:text-white/60">
+                {helperText}
+              </span>
+            ) : null}
+            <label htmlFor="attach-file" className="flex items-center gap-1.5">
             <input
               type="file"
               accept=".pdf, .doc, .docx, .txt"
@@ -62,8 +72,9 @@ export default function GeneratorInput({
             />
             <AttachmentIcon />
 
-            <span className="text-[#98A2B3] text-sm">Attach file</span>
-          </label>
+              <span className="text-[#98A2B3] text-sm">Attach file</span>
+            </label>
+          </div>
 
           <button
             type="submit"

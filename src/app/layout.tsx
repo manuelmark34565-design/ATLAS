@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   },
   description:
     'ATLAS AI Employee is a no-code AI platform that enables businesses to create intelligent AI employees that answer customer questions, capture leads, and automate customer interactions 24/7.',
+  icons: {
+    icon: '/images/favicon.svg',
+  },
 };
 
 export default function RootLayout({

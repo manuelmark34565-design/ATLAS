@@ -5,6 +5,24 @@
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @layer base {
+  :root {
+    --logo-mark-bg: #0f172a;
+    --logo-accent-1: #5b6cff;
+    --logo-accent-2: #7dd3fc;
+    --logo-accent-3: #60a5fa;
+    --logo-text: #0f172a;
+    --logo-subtext: #475569;
+  }
+
+  [data-theme="dark"] {
+    --logo-mark-bg: #f8fafc;
+    --logo-accent-1: #7dd3fc;
+    --logo-accent-2: #5b6cff;
+    --logo-accent-3: #60a5fa;
+    --logo-text: #f8fafc;
+    --logo-subtext: #cbd5e1;
+  }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;

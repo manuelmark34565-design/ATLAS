@@ -19,12 +19,11 @@ export default function PricingSection() {
       <div className="wrapper">
         <div className="max-w-2xl mx-auto mb-12 text-center">
           <h2 className="mb-3 font-bold text-center text-gray-800 text-3xl dark:text-white/90 md:text-title-lg">
-            Start Your Content Creation Journey with AI
+            Choose the plan that powers support, leads, and growth
           </h2>
           <p className="max-w-xl mx-auto leading-6 text-gray-500 dark:text-gray-400">
-            Collaborate with AI to generate content that resonates with your
-            audience, drives and delivers meaningful results across all
-            platforms.
+            Launch an AI employee that answers customer questions, captures leads,
+            and helps your business grow without adding complexity.
           </p>
         </div>
 
