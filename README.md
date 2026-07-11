@@ -23,7 +23,7 @@ ATLAS AI Employee helps businesses launch a working AI assistant in minutes, wit
 - **One-click Deployment on Vercel and Others:** Deploy on Vercel, netlify and other PaaS with one-click. Simply add environment variables and hit deploy button.
 - **Lifetime Free Updates:** One-time purchase gives you ongoing updates—new features, improvements, and fixes without extra fees or monthly costs.
 
-| ✨ Features                         | 🎁 AIStarterKit Free                 | 🔥 AIStarterKit Pro                        |
+| ✨ Features                         | 🎁 ATLAS Free                 | 🔥 ATLAS Pro                        |
 |----------------------------------|--------------------------------|--------------------------------------|
 | Next.js Pages                    | Static                         | Dynamic Boilerplate Template         |
 | Components                       | Limited                        | All According to Demo                |
