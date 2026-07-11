@@ -2,7 +2,7 @@
 
 ATLAS AI Employee is a no-code AI platform that enables businesses to create intelligent AI employees for customer support, lead capture, and business growth.
 
-![ATLAS AI Employee](./ai-starter-kit.png)
+![ATLAS AI Employee](./ATLAS.png)
 
 This repo contains the MVP implementation of ATLAS AI Employee, built with **Next.js**, **TypeScript**, and **Tailwind CSS**. It includes the core workflow for onboarding a business, training an AI on business data, opening a chat assistant, and capturing leads from unknown customer questions.
 
