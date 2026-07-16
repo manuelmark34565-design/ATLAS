@@ -50,7 +50,8 @@ export default function SignInForm() {
     }
 
     if (authData.session) {
-      router.push('/dashboard');
+      router.replace('/dashboard');
+      router.refresh();
       return;
     }
 

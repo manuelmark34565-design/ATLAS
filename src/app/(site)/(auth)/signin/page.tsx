@@ -6,6 +6,7 @@ import { createBrowserSupabaseClient } from '@/lib/supabase/client';
 import SignInForm from './signin-form';
 import { useState } from 'react';
 import { toast } from 'sonner';
+import { getAppBaseUrl } from '@/lib/app-url';
 
 export default function SignInPage() {
   const [isOAuthLoading, setIsOAuthLoading] = useState(false);
@@ -13,11 +14,12 @@ export default function SignInPage() {
   async function handleGoogleSignIn() {
     setIsOAuthLoading(true);
     const supabase = createBrowserSupabaseClient();
+    const appBaseUrl = getAppBaseUrl();
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/dashboard`,
+        redirectTo: `${appBaseUrl}/auth/callback?next=/dashboard`,
       },
     });
 

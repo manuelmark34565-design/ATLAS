@@ -20,7 +20,8 @@ export default function SignOutButton() {
       return;
     }
 
-    router.push('/signin');
+    router.replace('/signin');
+    router.refresh();
   }
 
   return (

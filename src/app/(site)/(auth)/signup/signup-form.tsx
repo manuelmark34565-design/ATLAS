@@ -57,11 +57,13 @@ export default function SignupForm() {
     }
 
     if (authData.session) {
-      router.push('/dashboard');
+      router.replace('/dashboard');
+      router.refresh();
       return;
     }
 
     toast.success('Account created. Check your email to confirm your account.');
+    router.push('/signin');
     setIsLoading(false);
   }
 

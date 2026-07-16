@@ -19,6 +19,7 @@
     "@ai-sdk/openai": "^4.0.13",
     "@ai-sdk/react": "^4.0.27",
     "@hookform/resolvers": "^5.0.1",
+    "@paystack/inline-js": "^2.23.1",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.110.1",
     "ai": "^7.0.26",

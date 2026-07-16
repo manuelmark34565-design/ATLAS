@@ -1,10 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { navItems } from './nav-items';
 import { cn } from '@/lib/utils';
 import { ChevronDownIcon } from '@/icons/icons';
+import { createBrowserSupabaseClient } from '@/lib/supabase/client';
+import type { User } from '@supabase/supabase-js';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -12,7 +14,30 @@ interface MobileMenuProps {
 
 export default function MainMobileNav({ isOpen }: MobileMenuProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [activeDropdown, setActiveDropdown] = useState('');
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const supabase = createBrowserSupabaseClient();
+
+    const loadSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      setUser(session?.user ?? null);
+    };
+
+    loadSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const toggleDropdown = (key: string) => {
     setActiveDropdown(activeDropdown === key ? '' : key);
@@ -98,19 +123,45 @@ export default function MainMobileNav({ isOpen }: MobileMenuProps) {
         </div>
 
         <div className="flex flex-col pt-2 pb-3 space-y-3 px-8">
-          <Link
-            href="/signin"
-            className="text-sm block w-full border h-11 border-gray-200 px-5 py-3 rounded-full text-center font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
-          >
-            Sign In
-          </Link>
+          {user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="text-sm block w-full border h-11 border-gray-200 px-5 py-3 rounded-full text-center font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
+              >
+                Dashboard
+              </Link>
+              <button
+                type="button"
+                onClick={async () => {
+                  const supabase = createBrowserSupabaseClient();
+                  await supabase.auth.signOut();
+                  setUser(null);
+                  router.replace('/');
+                  router.refresh();
+                }}
+                className="flex items-center px-5 py-3 gradient-btn justify-center text-sm text-white rounded-full button-bg h-11"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/signin"
+                className="text-sm block w-full border h-11 border-gray-200 px-5 py-3 rounded-full text-center font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
+              >
+                Sign In
+              </Link>
 
-          <Link
-            href="/signup"
-            className="flex items-center px-5 py-3 gradient-btn  justify-center text-sm text-white rounded-full button-bg h-11"
-          >
-            Get Started Free
-          </Link>
+              <Link
+                href="/signup"
+                className="flex items-center px-5 py-3 gradient-btn justify-center text-sm text-white rounded-full button-bg h-11"
+              >
+                Get Started Free
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

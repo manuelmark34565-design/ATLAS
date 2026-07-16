@@ -5,6 +5,56 @@ import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 
+async function handleCheckout(plan: TBILLING_PLAN, billingPeriod: keyof TBILLING_PLAN['pricing']) {
+  const amount = Number(plan.pricing[billingPeriod].amount ?? 0);
+
+  if (!amount || plan.name.toLowerCase().includes('free')) {
+    window.location.href = '/signup';
+    return;
+  }
+
+  if (plan.name.toLowerCase().includes('business') || plan.name.toLowerCase().includes('enterprise')) {
+    window.location.href = '/contact';
+    return;
+  }
+
+  try {
+    const planKey = plan.name.toLowerCase().includes('100')
+      ? 'credits100'
+      : plan.name.toLowerCase().includes('500')
+        ? 'credits500'
+        : plan.name.toLowerCase().includes('pro')
+          ? 'pro'
+          : plan.name.toLowerCase().includes('business')
+            ? 'business'
+            : 'free';
+
+    const response = await fetch('/api/paystack/initialize', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: 'guest@example.com',
+        amount,
+        plan: planKey,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (data?.data?.authorization_url) {
+      window.location.href = data.data.authorization_url;
+      return;
+    }
+
+    window.location.href = '/contact';
+  } catch (error) {
+    console.error('Unable to initialize payment', error);
+    window.location.href = '/contact';
+  }
+}
+
 type Props = {
   plan: TBILLING_PLAN;
   billingPeriod: keyof TBILLING_PLAN['pricing'];
@@ -12,6 +62,9 @@ type Props = {
 };
 
 export function PricingCard({ plan, billingPeriod, highlighted = false }: Props) {
+  const showPriceSuffix = !!plan.priceLabel || !!plan.pricing[billingPeriod].amount;
+  const priceSuffix = plan.priceLabel ?? (billingPeriod === 'yearly' ? 'Per year' : 'Per month');
+
   return (
     <div className="relative">
       <div
@@ -40,9 +93,9 @@ export function PricingCard({ plan, billingPeriod, highlighted = false }: Props)
               {plan.pricing[billingPeriod].formattedPrice}
             </span>
 
-            {!!plan.pricing[billingPeriod].amount && (
+            {showPriceSuffix && (
               <span className="ml-1 text-sm text-gray-500 dark:text-gray-400">
-                {billingPeriod === 'yearly' ? 'Per year' : 'Per month'}
+                {priceSuffix}
               </span>
             )}
           </p>
@@ -54,6 +107,7 @@ export function PricingCard({ plan, billingPeriod, highlighted = false }: Props)
             <ContactSalesLink>{plan.cta}</ContactSalesLink>
           ) : (
             <button
+              onClick={() => handleCheckout(plan, billingPeriod)}
               className={cn(
                 'block w-full px-8 py-3.5 mt-7 text-sm font-medium text-center rounded-full transition',
                 {
@@ -65,7 +119,7 @@ export function PricingCard({ plan, billingPeriod, highlighted = false }: Props)
                 }
               )}
             >
-              {plan.cta}``
+              {plan.cta}
             </button>
           )}
         </div>

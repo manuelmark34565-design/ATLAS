@@ -5,15 +5,60 @@ import { useEffect, useState } from 'react';
 import DesktopNav from './desktop-nav';
 import MainMobileNav from './main-mobile-nav';
 import ThemeToggle from './theme-toggle';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { createBrowserSupabaseClient } from '@/lib/supabase/client';
+import type { User } from '@supabase/supabase-js';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [authReady, setAuthReady] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    const supabase = createBrowserSupabaseClient();
+
+    let isMounted = true;
+
+    const loadSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (isMounted) {
+        setUser(session?.user ?? null);
+        setAuthReady(true);
+      }
+    };
+
+    loadSession();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (isMounted) {
+        setUser(session?.user ?? null);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  async function handleSignOut() {
+    const supabase = createBrowserSupabaseClient();
+    await supabase.auth.signOut();
+    setUser(null);
+    router.replace('/');
+    router.refresh();
+  }
 
   return (
     <header className="bg-white dark:bg-dark-primary border-b dark:border-gray-800 border-gray-100 sticky top-0 z-50 py-2 lg:py-4">
@@ -62,19 +107,39 @@ export default function Header() {
               {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
             </button>
 
-            <Link
-              href="/signin"
-              className="text-sm hidden lg:block font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
-            >
-              Sign In
-            </Link>
+            {!authReady ? null : user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="text-sm hidden lg:block font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="text-sm hidden lg:block font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/signin"
+                  className="text-sm hidden lg:block font-medium text-gray-700 dark:text-gray-400 hover:text-primary-500"
+                >
+                  Sign In
+                </Link>
 
-            <Link
-              href="/signup"
-              className="lg:inline-flex items-center px-5 py-3 gradient-btn hidden text-sm text-white rounded-full button-bg h-11"
-            >
-              Get Started Free
-            </Link>
+                <Link
+                  href="/signup"
+                  className="lg:inline-flex items-center px-5 py-3 gradient-btn hidden text-sm text-white rounded-full button-bg h-11"
+                >
+                  Get Started Free
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

@@ -9,6 +9,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
 import { createBrowserSupabaseClient } from '@/lib/supabase/client';
+import { getAppBaseUrl } from '@/lib/app-url';
 
 type Inputs = z.infer<typeof authValidation.forgotPasswordForm>;
 
@@ -31,7 +32,7 @@ export default function ForgotPasswordForm({ invalidToken }: PropsType) {
 
     try {
       const supabase = createBrowserSupabaseClient();
-      const redirectTo = `${window.location.origin}/reset-password`;
+      const redirectTo = `${getAppBaseUrl()}/reset-password`;
 
       const { error } = await supabase.auth.resetPasswordForEmail(
         data.email,
