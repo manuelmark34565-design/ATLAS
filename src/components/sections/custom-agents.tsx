@@ -1,18 +1,18 @@
 const AGENTS = [
   {
-    title: 'Executive Reporting',
-    description: 'Turn project context into concise leadership updates, board-style summaries, and decision-ready status reports.',
-    accent: 'Leadership updates',
+    title: 'Custom Agent Builder',
+    description: 'Design an AI employee around your exact workflow, rules, and tone so it behaves like a true team member.',
+    accent: 'Build your own workflow',
   },
   {
-    title: 'Email Prioritization',
-    description: 'Sort incoming messages, highlight urgent requests, and turn your inbox into a clear action list.',
-    accent: 'Inbox triage',
+    title: 'Bespoke Agent Consultation',
+    description: 'Work with our team to shape a tailored agent experience for your business, process, and customer journey.',
+    accent: 'Tailored to your business',
   },
   {
-    title: 'Meeting Notes',
-    description: 'Capture decisions, summarize discussion points, and generate action items you can follow up on immediately.',
-    accent: 'Follow-ups',
+    title: 'Agent Categories',
+    description: 'Choose from customer-facing, operations, sales, and growth categories to expand your AI workforce as you grow.',
+    accent: 'Scale your agent stack',
   },
 ];
 
@@ -28,7 +28,7 @@ export function CustomAgentsSection() {
             Built for the work that matters most
           </h2>
           <p className="mx-auto max-w-2xl text-base leading-7 text-gray-500 dark:text-gray-400">
-            These agents help turn routine communication into structured output you can use right away.
+            Custom agents let you define the behavior, workflows, and outputs that matter most to your team.
           </p>
         </div>
 

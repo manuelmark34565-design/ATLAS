@@ -1,5 +1,4 @@
 import { CloseIcon, MenuIcon } from '@/icons/icons';
-import Image from 'next/image';
 import Link from 'next/link';
 import DesktopNav from '../layout/header/desktop-nav';
 import ThemeToggle from '../layout/header/theme-toggle';

@@ -25,6 +25,11 @@ export const navItems: NavItem[] = [
   },
   {
     type: 'link',
+    label: 'Products',
+    href: '/products',
+  },
+  {
+    type: 'link',
     label: 'Pricing',
     href: '/pricing',
   },

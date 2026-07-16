@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import {
   BILLING_PERIODS,
   BILLING_PLANS,
@@ -13,18 +14,36 @@ type BillingPeriodKey = (typeof BILLING_PERIODS)[number]['key'];
 export default function PricingSection() {
   const [activeBillingPeriodKey, setActiveBillingPeriodKey] =
     useState<BillingPeriodKey>('monthly');
+  const searchParams = useSearchParams();
+  const highlightedPlan = searchParams.get('plan')?.toLowerCase();
+  const selectedCategory = searchParams.get('category');
+
+  const categoryLabel =
+    selectedCategory === 'internal-operations'
+      ? 'Internal Operations'
+      : selectedCategory === 'sales-growth'
+        ? 'Sales & Growth'
+        : selectedCategory === 'build-ai-agent'
+          ? 'Build Your AI Agent'
+          : selectedCategory === 'custom-solutions'
+            ? 'Custom Solutions'
+            : null;
 
   return (
     <section className="py-14 md:py-30 bg-gray-50 dark:bg-[#171f2e] dark:bg-linear-180 dark:from-white/3 dark:from-[45.56%] dark:to-white/0">
       <div className="wrapper">
         <div className="max-w-2xl mx-auto mb-12 text-center">
           <h2 className="mb-3 font-bold text-center text-gray-800 text-3xl dark:text-white/90 md:text-title-lg">
-            Choose the plan that powers support, leads, and growth
+            Choose the plan that unlocks your AI agents
           </h2>
           <p className="max-w-xl mx-auto leading-6 text-gray-500 dark:text-gray-400">
-            Launch an AI employee that answers customer questions, captures leads,
-            and helps your business grow without adding complexity.
+            From pre-built agents for customer support and lead qualification to building your custom AI workforce—scale from 0 to enterprise.
           </p>
+          {categoryLabel && (
+            <div className="mt-4 inline-flex rounded-full border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-medium text-primary-700 dark:border-primary-500/20 dark:bg-primary-500/10 dark:text-primary-300">
+              Selected category: {categoryLabel}
+            </div>
+          )}
         </div>
 
         <div>
@@ -64,6 +83,11 @@ export default function PricingSection() {
                 key={index}
                 plan={plan}
                 billingPeriod={activeBillingPeriodKey}
+                highlighted={
+                  highlightedPlan === 'plus' && plan.name.toLowerCase().includes('plus') ||
+                  highlightedPlan === 'pro' && plan.name.toLowerCase().includes('pro') ||
+                  highlightedPlan === 'enterprise' && plan.name.toLowerCase().includes('enterprise')
+                }
               />
             ))}
           </div>

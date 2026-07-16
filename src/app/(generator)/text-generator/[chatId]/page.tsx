@@ -5,19 +5,16 @@ import { RenderMessage } from '@/components/generator/render-message';
 import { GradientBlob } from '@/components/gradient-blob';
 import { useChat } from '@ai-sdk/react';
 import { createIdGenerator } from 'ai';
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 
 export default function Page() {
-  const [isThinking, setIsThinking] = useState(false);
+  const [input, setInput] = useState('');
   const [selectedAgent, setSelectedAgent] = useState<'general' | 'email'>('general');
+  const [isThinking, setIsThinking] = useState(false);
 
   const chatHandler = useChat({
     generateId: createIdGenerator({ prefix: 'msgc' }),
-    sendExtraMessageFields: true,
-    body: {
-      agent: selectedAgent,
-    },
-    onResponse: () => setIsThinking(false),
+    onFinish: () => setIsThinking(false),
   });
 
   return (
@@ -51,14 +48,25 @@ export default function Page() {
         </div>
 
         <form
-          onSubmit={(e) => {
+          onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+            const trimmed = input.trim();
+            if (!trimmed) return;
             setIsThinking(true);
-            chatHandler.handleSubmit(e);
+            await chatHandler.sendMessage(
+              { text: trimmed },
+              {
+                body: {
+                  agent: selectedAgent,
+                },
+              },
+            );
+            setInput('');
           }}
         >
           <GeneratorInput
-            value={chatHandler.input}
-            onChange={chatHandler.handleInputChange}
+            value={input}
+            onChange={(e) => setInput(e.currentTarget.value)}
             placeholder={
               selectedAgent === 'email'
                 ? 'Paste an email or describe the inbox task...'

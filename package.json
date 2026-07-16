@@ -14,16 +14,18 @@
     "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^1.3.10",
-    "@ai-sdk/react": "^1.2.8",
+    "@ai-sdk/google": "^4.0.14",
+    "@ai-sdk/groq": "^4.0.10",
+    "@ai-sdk/openai": "^4.0.13",
+    "@ai-sdk/react": "^4.0.27",
     "@hookform/resolvers": "^5.0.1",
     "@supabase/ssr": "^0.12.0",
     "@supabase/supabase-js": "^2.110.1",
-    "ai": "^4.3.5",
+    "ai": "^7.0.26",
     "clsx": "^2.1.1",
     "copy-text-to-clipboard": "^3.2.0",
     "fslightbox-react": "^1.8.0",
-    "next": "15.2.6",
+    "next": "16.2.10",
     "next-themes": "^0.4.6",
     "openai": "^4.93.0",
     "pg": "^8.14.1",
@@ -32,7 +34,8 @@
     "react-hook-form": "^7.56.1",
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
-    "use-stick-to-bottom": "^1.1.0"
+    "use-stick-to-bottom": "^1.1.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

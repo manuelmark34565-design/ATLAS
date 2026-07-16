@@ -35,7 +35,7 @@ export const BILLING_PLANS = [
   {
     name: 'Free',
     description:
-      'For hobbyists exploring AI—get started with essential features and a small token allowance.',
+      'For teams exploring AI agents—try essential agents and basic features.',
     pricing: {
       monthly: {
         amount: AMOUNTS['free']['monthly'],
@@ -49,11 +49,21 @@ export const BILLING_PLANS = [
       },
     },
     features: [
-      'Basic AI model access',
-      'Up to 25,000 tokens / month',
-      'Limited to 3 projects',
-      'No API key support',
-      'Community support only',
+      'Email Prioritization Agent',
+      'Customer Support Agent',
+      'Basic lead qualification',
+      'Up to 10 agent interactions / month',
+      'Community support',
+      'Sample agent access',
+    ],
+    agentCategories: [
+      { name: 'Email Prioritization Agent', included: true },
+      { name: 'Customer Support Agent', included: true },
+      { name: 'Full Customer-facing agents', included: false },
+      { name: 'Internal Operations agents', included: false },
+      { name: 'Sales & Growth agents', included: false },
+      { name: 'Build Your AI Agent', included: false },
+      { name: 'Custom Solutions', included: false },
     ],
     cta: 'Try it for free',
     popular: false,
@@ -61,7 +71,7 @@ export const BILLING_PLANS = [
   {
     name: 'Plus plan',
     description:
-      'For developers building real products—higher limits and more flexible usage.',
+      'For growing teams—access all pre-built agents and unlimited interactions.',
     pricing: {
       monthly: {
         amount: AMOUNTS['plus']['monthly'],
@@ -75,12 +85,19 @@ export const BILLING_PLANS = [
       },
     },
     features: [
-      'Everything in Free',
-      'Up to 250,000 tokens / month',
-      'Unlimited projects',
-      'Bring your own OpenAI API key',
-      'Basic analytics dashboard',
+      'All pre-built agents access',
+      'Unlimited agent interactions',
+      'Team collaboration (up to 5 members)',
+      'Usage analytics & reports',
       'Email support',
+      'API access',
+    ],
+    agentCategories: [
+      { name: 'Customer-facing agents', included: true },
+      { name: 'Internal Operations agents', included: true },
+      { name: 'Sales & Growth agents', included: true },
+      { name: 'Build Your AI Agent', included: false },
+      { name: 'Custom Solutions', included: false },
     ],
     cta: 'Subscribe Now',
     popular: true,
@@ -88,7 +105,7 @@ export const BILLING_PLANS = [
   {
     name: 'Pro plan',
     description:
-      'For teams and power users who need generous token limits and advanced tooling.',
+      'For power users—build custom agents and unlock advanced capabilities.',
     pricing: {
       monthly: {
         amount: AMOUNTS['pro']['monthly'],
@@ -103,11 +120,19 @@ export const BILLING_PLANS = [
     },
     features: [
       'Everything in Plus',
-      'Up to 1 million tokens / month',
-      'Advanced model selection (GPT-4, Claude 3)',
+      'Build Your AI Agent capability',
+      'Custom agent templates',
+      'Advanced customization options',
+      'Team collaboration (unlimited members)',
       'Priority support',
-      'Team collaboration tools',
-      'Exportable usage reports',
+      'Advanced analytics & insights',
+    ],
+    agentCategories: [
+      { name: 'Customer-facing agents', included: true },
+      { name: 'Internal Operations agents', included: true },
+      { name: 'Sales & Growth agents', included: true },
+      { name: 'Build Your AI Agent', included: true },
+      { name: 'Custom Solutions', included: false },
     ],
     cta: 'Subscribe Now',
     popular: false,
@@ -115,7 +140,7 @@ export const BILLING_PLANS = [
   {
     name: 'Enterprise',
     description:
-      'Tailored for companies with high-volume needs and advanced security.',
+      'For enterprises—dedicated support, custom agents, and unlimited scale.',
     pricing: {
       monthly: {
         amount: AMOUNTS['enterprise']['monthly'],
@@ -130,10 +155,19 @@ export const BILLING_PLANS = [
     },
     features: [
       'Everything in Pro',
-      'Unlimited tokens',
-      'Dedicated AI instance (optional)',
-      'SLA-backed support (24/7)',
+      'Bespoke Agent Consultation',
+      'Unlimited custom agents',
+      'Dedicated account manager',
+      'SLA-backed 24/7 support',
+      'Advanced security & compliance',
       'SSO & audit logging',
+    ],
+    agentCategories: [
+      { name: 'Customer-facing agents', included: true },
+      { name: 'Internal Operations agents', included: true },
+      { name: 'Sales & Growth agents', included: true },
+      { name: 'Build Your AI Agent', included: true },
+      { name: 'Custom Solutions', included: true },
     ],
     cta: 'Contact sales',
     popular: false,

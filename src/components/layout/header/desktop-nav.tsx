@@ -8,13 +8,14 @@ import { useEffect, useState } from 'react';
 export default function DesktopNav() {
   const pathname = usePathname();
   const [activeDropdownKey, setActiveDropdownKey] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   function toggleActiveDropdown(key: string) {
     setActiveDropdownKey((prevKey) => (prevKey === key ? '' : key));
   }
 
   useEffect(() => {
-    // Hide dropdown on pathname changes
+    setMounted(true);
     setActiveDropdownKey('');
   }, [pathname]);
 
@@ -30,7 +31,7 @@ export default function DesktopNav() {
                 'text-gray-500 dark:text-gray-400 text-sm px-4 py-1.5 rounded-full hover:text-primary-500 font-medium',
                 {
                   'bg-white dark:bg-white/5 font-medium text-gray-800 dark:text-white/90 shadow-xs':
-                    pathname === item.href,
+                    mounted && pathname === item.href,
                 }
               )}
             >
@@ -66,7 +67,7 @@ export default function DesktopNav() {
                   'text-gray-500 dark:text-gray-400 hover:text-primary-500 group text-sm inline-flex gap-1 items-center px-4 py-1.5 font-medium rounded-full',
                   {
                     'bg-white dark:bg-white/5 font-medium text-gray-800 dark:text-white/90 shadow-xs':
-                      dropdownItem.items.some(({ href }) => pathname?.includes(href)),
+                      mounted && dropdownItem.items.some(({ href }) => pathname?.includes(href)),
                   }
                 )}
               >

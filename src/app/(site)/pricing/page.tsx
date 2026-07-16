@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import PricingSection from '@/components/sections/pricing';
 
 export const metadata: Metadata = {
@@ -6,5 +7,9 @@ export const metadata: Metadata = {
 };
 
 export default async function PricingPage() {
-  return <PricingSection />;
+  return (
+    <Suspense fallback={null}>
+      <PricingSection />
+    </Suspense>
+  );
 }

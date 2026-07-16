@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import GeneratorWrapper from '@/components/generator/generator-wrapper';
 
 export default async function GeneratorLayout({
@@ -5,5 +6,9 @@ export default async function GeneratorLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <GeneratorWrapper>{children}</GeneratorWrapper>;
+  return (
+    <Suspense fallback={null}>
+      <GeneratorWrapper>{children}</GeneratorWrapper>
+    </Suspense>
+  );
 }

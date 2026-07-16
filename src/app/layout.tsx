@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from 'next-themes';
 import { Onest } from 'next/font/google';
 import './globals.css';
 import { ToasterProvider } from './providers/toaster';
+import { ThemeProvider } from './providers/theme-provider';
 
 const onest = Onest({
   subsets: ['latin'],

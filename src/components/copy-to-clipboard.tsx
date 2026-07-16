@@ -16,17 +16,63 @@ export function CopyToClipboard({ text }: { text: string }) {
     }, 3000);
   }
 
-  return (
-    <button
-      onClick={handleClick}
-      className="flex gap-1 items-center hover:text-gray-500 dark:hover:text-white/90 dark:text-gray-400 dark:border-white/5 bg-white dark:bg-white/3 h-8 rounded-full px-3 py-1.5 border font-medium text-gray-700 border-gray-100 text-xs"
-    >
-      {isCopied ? <CheckMarkIcon /> : <ClipboardIcon />}
+  function handleShare(platform: 'facebook' | 'instagram' | 'x' | 'reddit') {
+    const shareText = text || 'Check this out';
+    const currentUrl = typeof window !== 'undefined' ? window.location.href : 'https://atlas.ai';
+    const encodedText = encodeURIComponent(shareText);
+    const encodedUrl = encodeURIComponent(currentUrl);
 
-      <span>
-        {isCopied ? 'Copied' : 'Copy'}{' '}
-        <span className="sr-only">to clipboard</span>
-      </span>
-    </button>
+    const shareUrls = {
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`,
+      instagram: 'https://www.instagram.com/',
+      x: `https://x.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`,
+      reddit: `https://www.reddit.com/submit?title=${encodedText}&url=${encodedUrl}`,
+    };
+
+    window.open(shareUrls[platform], '_blank', 'noopener,noreferrer');
+  }
+
+  return (
+    <div className="flex flex-wrap items-center gap-1.5">
+      <button
+        onClick={handleClick}
+        className="group flex h-8 items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-600 hover:shadow-[0_10px_25px_rgba(59,130,246,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/10 dark:hover:text-white"
+      >
+        {isCopied ? <CheckMarkIcon /> : <ClipboardIcon />}
+        <span>{isCopied ? 'Copied' : 'Copy'}</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={() => handleShare('facebook')}
+        className="group h-8 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-600 hover:shadow-[0_10px_25px_rgba(59,130,246,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/10 dark:hover:text-white"
+      >
+        Facebook
+      </button>
+
+      <button
+        type="button"
+        onClick={() => handleShare('instagram')}
+        className="group h-8 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-600 hover:shadow-[0_10px_25px_rgba(59,130,246,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/10 dark:hover:text-white"
+      >
+        Instagram
+      </button>
+
+      <button
+        type="button"
+        onClick={() => handleShare('x')}
+        className="group h-8 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-600 hover:shadow-[0_10px_25px_rgba(59,130,246,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/10 dark:hover:text-white"
+      >
+        X
+      </button>
+
+      <button
+        type="button"
+        onClick={() => handleShare('reddit')}
+        className="group h-8 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-600 hover:shadow-[0_10px_25px_rgba(59,130,246,0.16)] dark:border-white/10 dark:bg-white/5 dark:text-gray-300 dark:hover:border-primary-400/50 dark:hover:bg-primary-500/10 dark:hover:text-white"
+      >
+        Reddit
+      </button>
+    </div>
   );
 }
