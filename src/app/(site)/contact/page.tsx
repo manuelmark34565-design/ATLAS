@@ -1,7 +1,5 @@
-import { Input } from '@/components/ui/inputs';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/inputs/textarea';
 import type { Metadata } from 'next';
+import ContactForm from './contact-form';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -20,32 +18,13 @@ export default function ContactPage() {
               <p className="text-gray-500 dark:text-gray-400">
                 Open a ticket, we will get back to you ASAP
               </p>
+              <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
+                Or email directly: <a href="mailto:anoziechisom62@gmail.com" className="font-medium text-primary-500">anoziechisom62@gmail.com</a>
+              </p>
             </div>
-            <form>
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="firstName">First Name</Label>
-                  <Input type="text" placeholder="Jhamse" />
-                </div>
-                <div>
-                  <Label htmlFor="lastName"> Last Name</Label>
-                  <Input type="text" placeholder="Enter your last name" />
-                </div>
-                <div className="col-span-full">
-                  <Label htmlFor="email">Email address</Label>
-                  <Input type="text" placeholder="example@gmail.com" />
-                </div>
-                <div className="col-span-full">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea rows={6} placeholder="Type your message" />
-                </div>
-                <div className="col-span-full">
-                  <button className="bg-primary-500 hover:bg-primary-600 transition h-12 py-3 px-6 w-full font-medium text-white text-sm rounded-full">
-                    Send Message
-                  </button>
-                </div>
-              </div>
-            </form>
+
+            <ContactForm />
+
           </div>
         </div>
       </div>

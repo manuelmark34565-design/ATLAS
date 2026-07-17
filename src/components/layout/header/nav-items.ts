@@ -33,4 +33,9 @@ export const navItems: NavItem[] = [
     label: 'Pricing',
     href: '/pricing',
   },
+  {
+    type: 'link',
+    label: 'Contact',
+    href: '/contact',
+  },
 ];
