@@ -14,7 +14,7 @@ export default function SignupClient() {
   async function handleGoogleSignUp() {
     setIsOAuthLoading(true);
     const supabase = createBrowserSupabaseClient();
-    const appBaseUrl = getAppBaseUrl();
+    const appBaseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
 
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
