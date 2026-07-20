@@ -18,9 +18,6 @@ export default function ContactPage() {
               <p className="text-gray-500 dark:text-gray-400">
                 Open a ticket, we will get back to you ASAP
               </p>
-              <p className="text-sm mt-2 text-gray-600 dark:text-gray-400">
-                Or email directly: <a href="mailto:anoziechisom62@gmail.com" className="font-medium text-primary-500">anoziechisom62@gmail.com</a>
-              </p>
             </div>
 
             <ContactForm />

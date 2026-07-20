@@ -4,7 +4,7 @@ import FsLightbox from 'fslightbox-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-const videoUrl = 'https://www.youtube.com/watch?v=_iHmNaQBtKk';
+const videoUrl = '/videos/atlas-official-video.mp4';
 
 export function IntroVideo() {
   const [isMounted, setIsMounted] = useState(false);
@@ -39,7 +39,7 @@ export function IntroVideo() {
 
       {isMounted &&
         createPortal(
-          <FsLightbox toggler={isOpen} sources={[videoUrl]} />,
+          <FsLightbox toggler={isOpen} sources={[videoUrl]} types={['video']} />,
           document.body
         )}
     </>

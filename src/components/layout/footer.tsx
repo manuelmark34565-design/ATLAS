@@ -7,7 +7,11 @@ export default function Footer() {
       <div className="wrapper py-12">
         <div className="grid gap-8 lg:grid-cols-[2fr_1fr]">
           <div>
-            <h2 className="text-2xl font-semibold text-white">ATLAS AI Employee</h2>
+            <img
+              src="/images/logo/atlas-logo.png"
+              alt="ATLAS AI Employee"
+              className="h-16 w-auto mb-4"
+            />
             <p className="mt-4 max-w-lg text-sm text-gray-400">
               Create an AI employee for customer support, lead capture, and business growth.
               Train with your own business data and let it work 24/7.

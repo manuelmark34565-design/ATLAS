@@ -35,7 +35,7 @@ export default function HeroSection() {
                 Get Started Free
               </Link>
 
-              {/* IntroVideo removed/hidden per request */}
+              <IntroVideo />
             </div>
 
             <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
